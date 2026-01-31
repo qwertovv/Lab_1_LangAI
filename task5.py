@@ -150,3 +150,84 @@ def test_iterator():
     print("  Первые 3 элемента:")
     for i in range(3):
         print(f"    Элемент {i+1}: {next(single_iterator)}")
+
+def demonstrate_usage():
+    """
+    Демонстрация практического использования итератора.
+    """
+    print("\n" + "=" * 50)
+    print("Практический пример: циклический опрос студентов")
+    print("=" * 50)
+    
+    # Список студентов
+    students = ["Алексей", "Мария", "Иван", "Екатерина"]
+    print(f"Список студентов: {students}")
+    
+    # Создаем итератор
+    student_iterator = CyclicListIterator(students)
+    
+    # Симулируем опрос 8 студентов (2 полных цикла)
+    print("\nОпрос студентов (по кругу):")
+    for i in range(8):
+        student = next(student_iterator)
+        print(f"  Вопрос {i+1} задается студенту: {student}")
+    
+    print("\n" + "=" * 50)
+    print("Пример с оператором цикла for:")
+    print("=" * 50)
+    
+    # Важно: цикл for с таким итератором будет бесконечным!
+    # Поэтому используем вспомогательную переменную для ограничения
+    
+    # Создаем новый итератор
+    colors = ["красный", "зеленый", "синий"]
+    color_iterator = CyclicListIterator(colors)
+    
+    print(f"Список цветов: {colors}")
+    print("\nЦикл for с ограничением (10 итераций):")
+    
+    # Используем цикл for с zip для ограничения
+    colors_to_show = []
+    for i, color in enumerate(color_iterator):
+        colors_to_show.append(color)
+        if i >= 9:  # Ограничиваем количество итераций
+            break
+    
+    print(f"Результат: {colors_to_show}")
+    
+    print("\n" + "=" * 50)
+    print("Проверка type и методов итератора:")
+    print("=" * 50)
+    
+    # Создаем итератор
+    test_list = [10, 20, 30]
+    iterator = CyclicListIterator(test_list)
+    
+    # Проверяем тип
+    print(f"Тип iterator: {type(iterator)}")
+    print(f"iterator имеет метод __iter__: {hasattr(iterator, '__iter__')}")
+    print(f"iterator имеет метод __next__: {hasattr(iterator, '__next__')}")
+    
+    # Проверяем работу вручную
+    print("\nРучная проверка работы next():")
+    print(f"  1-й next(): {next(iterator)}")
+    print(f"  2-й next(): {next(iterator)}")
+    print(f"  3-й next(): {next(iterator)}")
+    print(f"  4-й next(): {next(iterator)}  (начало нового цикла)")
+    
+    # Показываем текущий индекс
+    print(f"\nТекущий индекс итератора: {iterator.index}")
+    iterator.reset()
+    print(f"После reset(), индекс итератора: {iterator.index}")
+
+# Запускаем тесты
+if __name__ == "__main__":
+    print("Задача 2: Класс CyclicListIterator")
+    print("=" * 50)
+    
+    test_iterator()
+    demonstrate_usage()
+    
+    print("\n" + "=" * 50)
+    print("Все тесты завершены успешно!")
+    print("=" * 50)
